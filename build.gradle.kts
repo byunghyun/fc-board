@@ -6,6 +6,17 @@ plugins {
     id("org.jlleitschuh.gradle.ktlint") version "11.4.0"
     kotlin("plugin.jpa") version "1.9.25"
     kotlin("kapt") version "1.8.22"
+    id("com.diffplug.spotless") version "6.25.0"
+}
+
+spotless {
+    kotlin {
+        // ktfmt(google) — 줄바꿈/래핑 수행
+        ktfmt("0.51").googleStyle()
+        // 필요하면 ktlint도 병행 가능
+        // ktlint("1.2.1")
+        target("**/*.kt")
+    }
 }
 
 group = "org.fastcampus"
@@ -30,7 +41,7 @@ dependencies {
     implementation(dependencyNotation = "org.springdoc:springdoc-openapi-starter-webmvc-ui:2.1.0")
     implementation(dependencyNotation = "com.querydsl:querydsl-jpa:5.0.0:jakarta")
     kapt("com.querydsl:querydsl-apt:5.0.0:jakarta")
-    runtimeOnly("com.h2database:h2")
+    testImplementation("com.h2database:h2")
     runtimeOnly("com.mysql:mysql-connector-j")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
